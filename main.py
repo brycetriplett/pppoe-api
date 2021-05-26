@@ -41,6 +41,7 @@ def removepppoe():
         request = client.CreateCoAPacket(code=packet.DisconnectRequest, **attributes)
         client.SendPacket(request)
         
+        
     t = Thread(target=process, args=get_radius_data(pppoelogin))
     t.start()
 
