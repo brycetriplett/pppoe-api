@@ -1,0 +1,180 @@
+# -*- text -*-
+
+# Copyright (C) 2011 The FreeRADIUS Server project and contributors
+
+##############################################################################
+
+#
+
+#   Dictionary for NetElastic. 
+
+#
+
+#   $Id: 9fc8b56cd74314b42624d430a7dbc9dcfb4e23de $
+
+#
+
+##############################################################################
+
+ATTRIBUTE	User-Name		1	string
+ATTRIBUTE	User-Password		2	string
+ATTRIBUTE	CHAP-Password		3	octets
+ATTRIBUTE	NAS-IP-Address		4	ipaddr
+ATTRIBUTE	NAS-Port		5	integer
+ATTRIBUTE	Service-Type		6	integer
+ATTRIBUTE	Framed-Protocol		7	integer
+ATTRIBUTE	Framed-IP-Address	8	ipaddr
+ATTRIBUTE	Framed-IP-Netmask	9	ipaddr
+ATTRIBUTE	Framed-Routing		10	integer
+ATTRIBUTE	Filter-Id		11	string
+ATTRIBUTE	Framed-MTU		12	integer
+ATTRIBUTE	Framed-Compression	13	integer
+ATTRIBUTE	Login-IP-Host		14	ipaddr
+ATTRIBUTE	Login-Service		15	integer
+ATTRIBUTE	Login-TCP-Port		16	integer
+ATTRIBUTE	Reply-Message		18	string
+ATTRIBUTE	Callback-Number		19	string
+ATTRIBUTE	Callback-Id		20	string
+ATTRIBUTE	Framed-Route		22	string
+ATTRIBUTE	Framed-IPX-Network	23	ipaddr
+ATTRIBUTE	State			24	octets
+ATTRIBUTE	Class			25	octets
+ATTRIBUTE	Vendor-Specific		26	octets
+ATTRIBUTE	Session-Timeout		27	integer
+ATTRIBUTE	Idle-Timeout		28	integer
+ATTRIBUTE	Termination-Action	29	integer
+ATTRIBUTE	Called-Station-Id	30	string
+ATTRIBUTE	Calling-Station-Id	31	string
+ATTRIBUTE	NAS-Identifier		32	string
+ATTRIBUTE	Proxy-State		33	octets
+ATTRIBUTE	Login-LAT-Service	34	string
+ATTRIBUTE	Login-LAT-Node		35	string
+ATTRIBUTE	Login-LAT-Group		36	octets
+ATTRIBUTE	Framed-AppleTalk-Link	37	integer
+ATTRIBUTE	Framed-AppleTalk-Network 38	integer
+ATTRIBUTE	Framed-AppleTalk-Zone	39	string
+
+ATTRIBUTE	Acct-Status-Type	40	integer
+ATTRIBUTE	Acct-Delay-Time		41	integer
+ATTRIBUTE	Acct-Input-Octets	42	integer
+ATTRIBUTE	Acct-Output-Octets	43	integer
+ATTRIBUTE	Acct-Session-Id		44	string
+ATTRIBUTE	Acct-Authentic		45	integer
+ATTRIBUTE	Acct-Session-Time	46	integer
+ATTRIBUTE       Acct-Input-Packets	47	integer
+ATTRIBUTE       Acct-Output-Packets	48	integer
+ATTRIBUTE	Acct-Terminate-Cause	49	integer
+ATTRIBUTE	Acct-Multi-Session-Id	50	string
+ATTRIBUTE	Acct-Link-Count		51	integer
+ATTRIBUTE	Acct-Input-Gigawords    52      integer
+ATTRIBUTE	Acct-Output-Gigawords   53      integer
+ATTRIBUTE	Event-Timestamp         55      date
+
+ATTRIBUTE	CHAP-Challenge		60	string
+ATTRIBUTE	NAS-Port-Type		61	integer
+ATTRIBUTE	Port-Limit		62	integer
+ATTRIBUTE	Login-LAT-Port		63	integer
+
+ATTRIBUTE	Acct-Tunnel-Connection	68	string
+
+ATTRIBUTE	ARAP-Password           70      string
+ATTRIBUTE	ARAP-Features           71      string
+ATTRIBUTE	ARAP-Zone-Access        72      integer
+ATTRIBUTE	ARAP-Security           73      integer
+ATTRIBUTE	ARAP-Security-Data      74      string
+ATTRIBUTE	Password-Retry          75      integer
+ATTRIBUTE	Prompt                  76      integer
+ATTRIBUTE	Connect-Info		77	string
+ATTRIBUTE	Configuration-Token	78	string
+ATTRIBUTE	EAP-Message		79	string
+ATTRIBUTE	Message-Authenticator	80	octets
+ATTRIBUTE	ARAP-Challenge-Response	84	string	# 10 octets
+ATTRIBUTE	Acct-Interim-Interval   85      integer
+ATTRIBUTE	NAS-Port-Id		87	string
+ATTRIBUTE	Framed-Pool		88	string
+ATTRIBUTE	NAS-IPv6-Address	95	octets	# really IPv6
+ATTRIBUTE	Framed-Interface-Id	96	octets	# 8 octets
+ATTRIBUTE	Framed-IPv6-Prefix	97	ipv6prefix	# stupid format
+ATTRIBUTE	Login-IPv6-Host		98	octets	# really IPv6
+ATTRIBUTE	Framed-IPv6-Route	99	string
+ATTRIBUTE	Framed-IPv6-Pool	100	string
+ATTRIBUTE   Delegated-IPv6-Prefix   123     ipv6prefix
+
+
+ATTRIBUTE	Digest-Response		206	string
+ATTRIBUTE	Digest-Attributes	207	octets	# stupid format
+
+
+#####################################################################
+
+VENDOR      NetElastic              54268
+
+BEGIN-VENDOR    NetElastic
+
+ATTRIBUTE   NetElastic-Input-Burst-Size              1      integer
+
+ATTRIBUTE   NetElastic-Input-Average-Rate            2      integer
+
+ATTRIBUTE   NetElastic-Input-Peak-Rate               3      integer
+
+ATTRIBUTE   NetElastic-Output-Burst-Size             4      integer
+
+ATTRIBUTE   NetElastic-Output-Average-Rate           5      integer
+
+ATTRIBUTE   NetElastic-Output-Peak-Rate              6      integer
+
+ATTRIBUTE   NetElastic-Remanent-Volume               15     integer
+
+ATTRIBUTE   NetElastic-ISP-ID                        17     string
+
+ATTRIBUTE   NetElastic-PortalURL                     27     string
+
+ATTRIBUTE   NetElastic-Qos-Profile-Name              31     string
+
+ATTRIBUTE   NetElastic-Lease-Time                    74     integer
+
+ATTRIBUTE   NetElastic-Input-Peak-Burst-Size         77     integer
+
+ATTRIBUTE   NetElastic-Output-Peak-Burst-Size        78     integer
+
+ATTRIBUTE   NetElastic-Data-Filter                   82     string
+
+ATTRIBUTE   NetElastic-Portal-Mode                   85     integer
+
+ATTRIBUTE   NetElastic-Policy-Name                   95     string
+
+ATTRIBUTE   NetElastic-Primary-DNS                   135    ipaddr
+
+ATTRIBUTE   NetElastic-Secondary-DNS                 136    ipaddr
+
+ATTRIBUTE   NetElastic-Domain-Name                   138    string
+
+ATTRIBUTE   NetElastic-HTTP-Redirect-URL             140    string
+
+ATTRIBUTE   NetElastic-Acct-IPv6-Input-Octets        144    integer
+
+ATTRIBUTE   NetElastic-Acct-IPv6-Output-Octets       145    integer
+
+ATTRIBUTE   NetElastic-Acct-IPv6-Input-Packets       146    integer
+
+ATTRIBUTE   NetElastic-Acct-IPv6-Output-Packets      147    integer
+
+ATTRIBUTE   NetElastic-Acct-IPv6-Input-Gigawords     148    integer
+
+ATTRIBUTE   NetElastic-Acct-IPv6-Output-Gigawords    149    integer
+
+ATTRIBUTE   NetElastic-User-Mac                      153    string
+
+ATTRIBUTE   NetElastic-Framed-IPv6-Address           158    ipv6addr
+
+ATTRIBUTE   NetElastic-NAT-Public-Address            161    ipaddr
+
+ATTRIBUTE   NetElastic-NAT-Start-Port                162    integer
+
+ATTRIBUTE   NetElastic-NAT-End-Port                  163    integer
+
+ATTRIBUTE   NetElastic-Remanent-Volume-Type          251    integer
+
+ATTRIBUTE   NetElastic-Web-COA                       252    integer
+
+END-VENDOR  NetElastic
