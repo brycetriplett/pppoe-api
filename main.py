@@ -40,6 +40,7 @@ def removepppoe():
         
         request = client.CreateCoAPacket(code=packet.DisconnectRequest, **attributes)
         client.SendPacket(request)
+        return
         
         
     t = Thread(target=process, args=get_radius_data(pppoelogin))
@@ -62,6 +63,7 @@ def changespeed():
 
         request = client.CreateCoAPacket(**attributes)
         client.SendPacket(request)
+        return
     
 
     t = Thread(target=process, args=get_radius_data(radius_username))
