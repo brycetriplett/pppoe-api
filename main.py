@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
+import threading
 from pyodbc import connect
 from flask import Flask, request
 from pyrad.client import Client
 from pyrad import dictionary, packet
 from configparser import ConfigParser
 from contextlib import contextmanager
-from threading import Thread
 
 
 config = ConfigParser()
@@ -42,10 +42,8 @@ def removepppoe():
         return client.SendPacket(request)
 
         
-    t = Thread(target=process, args=get_radius_data(pppoelogin))
-    t.start()
-
-    return '', 200
+    t = threading.Thread(target=process, args=get_radius_data(pppoelogin))
+    return t.start(), 200
 
 
 @api.route('/changespeed', methods=['POST'])
@@ -64,10 +62,8 @@ def changespeed():
         return client.SendPacket(request)
     
 
-    t = Thread(target=process, args=get_radius_data(radius_username))
-    t.start()
-
-    return '', 200
+    t = threading.Thread(target=process, args=get_radius_data(radius_username))
+    return t.start(), 200
 
 
 @contextmanager
