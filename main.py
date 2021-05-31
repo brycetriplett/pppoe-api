@@ -80,7 +80,7 @@ def change_speed():
     @error_logging
     def process(radius_username):
         username, session_id, rta_data = get_radius_data(radius_username)
-
+        raise Exception('test exception')
         attributes = {
             "Acct-Session-Id" : session_id,
             "NetElastic-Qos-Profile-Name" : rta_data,
