@@ -49,7 +49,7 @@ def error_logging(func):
     return wrapper
 
 
-@api.route('/removepppoe', methods=['POST'])
+@api.route('/disconnect', methods=['POST'])
 def disconnect():
     radius_username = request.args['d']
 
@@ -88,9 +88,7 @@ def change_speed():
             }
 
         request = client.CreateCoAPacket(**attributes)
-        client.SendPacket(request)
-
-        raise Exception('test exception')
+        return client.SendPacket(request)
     
 
     t = threading.Thread(target=process, args=(radius_username,))
