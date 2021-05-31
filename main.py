@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
 import threading
+import traceback
+import requests
+
+from datetime import datetime
 from pyodbc import connect
 from flask import Flask, request
 from pyrad.client import Client
@@ -11,6 +15,8 @@ from contextlib import contextmanager
 
 config = ConfigParser()
 config.read('config.ini')
+
+error_url = config['slack']['error_url']
 
 sql_kws = config['database']
 sql_kws = {x:sql_kws[x] for x in sql_kws}
@@ -27,11 +33,30 @@ client.timeout = 30
 api = Flask(__name__)
 
 
+def error_logging(func):
+    def wrapper(*args, **kws):
+        try:
+            func(*args, **kws)
+
+        except Exception:
+            data = dict(
+                url=error_url,
+                data=f"{datetime.now()} PPPOE API: {''.join(traceback.format_exc())}"
+            )
+
+            requests.post(**data)
+
+    return wrapper
+
+
 @api.route('/removepppoe', methods=['POST'])
 def disconnect():
     radius_username = request.args['d']
-    
-    def process(username, session_id, rta_data):
+
+    @error_logging
+    def process(radius_username):
+        username, session_id, rta_data = get_radius_data(radius_username)
+
         attributes = {
             "Acct-Session-Id" : session_id,
             "User-Name" : username,
@@ -42,17 +67,18 @@ def disconnect():
         return client.SendPacket(request)
 
         
-    t = threading.Thread(target=process, args=get_radius_data(radius_username))
+    t = threading.Thread(target=process, args=(radius_username,))
     t.start()
 
     return '', 200
 
 
 @api.route('/changespeed', methods=['POST'])
-def changespeed():
+def change_speed():
     radius_username = request.args['d']
 
-    def process():
+    @error_logging
+    def process(radius_username):
         username, session_id, rta_data = get_radius_data(radius_username)
 
         attributes = {
@@ -66,7 +92,7 @@ def changespeed():
         return client.SendPacket(request)
     
 
-    t = threading.Thread(target=process)
+    t = threading.Thread(target=process, args=(radius_username,))
     t.start()
 
     return '', 200
