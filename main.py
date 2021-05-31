@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import threading
+import multiprocessing
 from pyodbc import connect
 from flask import Flask, request
 from pyrad.client import Client
@@ -28,8 +28,8 @@ api = Flask(__name__)
 
 
 @api.route('/removepppoe', methods=['POST'])
-def removepppoe():
-    pppoelogin = request.args['d']
+def disconnect():
+    radius_username = request.args['d']
     
     def process(username, session_id, rta_data):
         attributes = {
@@ -42,14 +42,14 @@ def removepppoe():
         return client.SendPacket(request)
 
         
-    t = threading.Thread(target=process, args=get_radius_data(pppoelogin))
+    t = multiprocessing.Process(target=process, args=get_radius_data(radius_username))
     t.start()
-    
+
     return '', 200
 
 
 @api.route('/changespeed', methods=['POST'])
-def changespeed():
+def change_speed():
     radius_username = request.args['d']
 
     def process(username, session_id, rta_data):
@@ -64,7 +64,7 @@ def changespeed():
         return client.SendPacket(request)
     
 
-    t = threading.Thread(target=process, args=get_radius_data(radius_username))
+    t = multiprocessing.Process(target=process, args=get_radius_data(radius_username))
     t.start()
 
     return '', 200
