@@ -43,7 +43,9 @@ def removepppoe():
 
         
     t = threading.Thread(target=process, args=get_radius_data(pppoelogin))
-    return t.start(), 200
+    t.start()
+    
+    return '', 200
 
 
 @api.route('/changespeed', methods=['POST'])
@@ -63,7 +65,9 @@ def changespeed():
     
 
     t = threading.Thread(target=process, args=get_radius_data(radius_username))
-    return t.start(), 200
+    t.start()
+
+    return '', 200
 
 
 @contextmanager
