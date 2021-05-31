@@ -115,4 +115,4 @@ def get_radius_data(username):
 
 
 if __name__ == "__main__":
-    api.run(host='0.0.0.0', port=8181)
+    api.run(host='0.0.0.0', port=8000)
