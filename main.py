@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import multiprocessing
+import threading
 from pyodbc import connect
 from flask import Flask, request
 from pyrad.client import Client
@@ -42,17 +42,19 @@ def disconnect():
         return client.SendPacket(request)
 
         
-    t = multiprocessing.Process(target=process, args=get_radius_data(radius_username))
+    t = threading.Thread(target=process, args=get_radius_data(radius_username))
     t.start()
 
     return '', 200
 
 
 @api.route('/changespeed', methods=['POST'])
-def change_speed():
+def changespeed():
     radius_username = request.args['d']
 
-    def process(username, session_id, rta_data):
+    def process():
+        username, session_id, rta_data = get_radius_data(radius_username)
+
         attributes = {
             "Acct-Session-Id" : session_id,
             "NetElastic-Qos-Profile-Name" : rta_data,
@@ -64,7 +66,7 @@ def change_speed():
         return client.SendPacket(request)
     
 
-    t = multiprocessing.Process(target=process, args=get_radius_data(radius_username))
+    t = threading.Thread(target=process)
     t.start()
 
     return '', 200
