@@ -38,10 +38,15 @@ def error_logging(func):
         try:
             func(*args, **kws)
 
+        except TypeError:
+            #happens when there is no current radius login
+            #not a problem
+            pass
+
         except Exception:
             data = dict(
                 url=error_url,
-                data=f"{datetime.now()} PPPOE API: {''.join(traceback.format_exc())}"
+                data=f"{datetime.now()} RADIUS API:\n{''.join(traceback.format_exc())}"
             )
 
             requests.post(**data)
